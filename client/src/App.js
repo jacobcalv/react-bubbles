@@ -7,12 +7,14 @@ import PrivateRoute from './components/PrivateRoute'
 import {getToken} from './utils/axiosWithAuth'
 import "./styles.scss";
 
+
 function App() {
   const areYouSignedIn = getToken()
 
   return (
 
       <div className="App">
+        
         <Route exact path="/" component={Login} />
         <PrivateRoute exact path='/bubblepage' component={BubblePage}/>
 

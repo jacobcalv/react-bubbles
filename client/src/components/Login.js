@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import axiosWithAuth from '../utils/axiosWithAuth'
+import '../login.css'
+import styled from 'styled-components'
 
 const Login = (props) => {
   const [error, setError] = useState()
@@ -32,16 +34,29 @@ const Login = (props) => {
         setError(err.response.data.message)
 			})
 	}
-	
+  
+  const Header = styled.h1`
+    color: white;
+    font-size: 3rem
+  `
+
 	return (
-		<form onSubmit={handleSubmit}>
-			{error && <p className="error">{error}</p>}
+    <div className='container'>
+      <Header>Bubbles!!!</Header>
+      <form className='reg' onSubmit={handleSubmit}>
+        {error && <p className="error">{error}</p>}
 
-			<input type="username" name="username" placeholder="Username" value={data.username} onChange={handleChange} />
-			<input type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} />
+          <label>Username</label>
+          <input type="username" name="username" placeholder="Username" value={data.username} onChange={handleChange} />
 
-			<button type="submit">Sign In</button>
-		</form>
+        
+
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} />
+
+        <button className='submit' type="submit">Sign In</button>
+      </form>
+    </div>
 	)
 }
 

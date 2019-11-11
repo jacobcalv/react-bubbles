@@ -12,22 +12,20 @@ const ColorList = ({ colors, updateColors }) => {
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
 
-  useEffect(() => {
-    updateColors(colors)
-  }, [updateColors, colors])
 
-  const editColor = color => {
+  const editColor = selectedColor => {
     setEditing(true);
-    setColorToEdit(color);
+    setColorToEdit(selectedColor);
   };
 
-  const saveEdit = (e) => {
+
+  
+  const saveEdit = (e, id) => {
     e.preventDefault();
     axiosWithAuth()
       .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
         .then(res => {
           setEditing(false)
-          
         })
         .catch(error => {
           console.log('error check log')
@@ -39,7 +37,8 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .delete(`/api/colors/${color.id}`)
         .then(res => {
-          console.log('deleted')
+          console.log(color)
+          updateColors([...colors.filter(color => color.id !== res.data)])
         })
         .catch(error => {
           console.log('error check log')
