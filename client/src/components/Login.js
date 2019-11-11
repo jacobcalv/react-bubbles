@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import api from '../utils/api'
+import axiosWithAuth from '../utils/axiosWithAuth'
 
 const Login = (props) => {
   const [error, setError] = useState()
@@ -21,12 +21,12 @@ const Login = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault()
     //since I set up the API in the utils folder I can call it here and give it the path of the login
-		api()
+		axiosWithAuth()
 			.post("/api/login", data)
 			.then(result => {
         localStorage.setItem("token", result.data.payload)
         //if there is success the token is stored in local storage
-				props.history.push("/account")
+				props.history.push("/bubblepage")
 			})
 			.catch(err => {
         setError(err.response.data.message)
